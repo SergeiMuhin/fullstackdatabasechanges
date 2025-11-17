@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": null,
+  "id": 1,
   "links": [],
   "panels": [
     {
@@ -44,7 +44,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "red",
@@ -151,16 +151,17 @@
       "targets": [
         {
           "editorMode": "code",
-          "expr": "sum by (op) (tidb_cdc_operations_total)",
+          "expr": "round(sum by (op) (increase(tidb_cdc_operations_total[1h])))",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "Operations by Type",
+      "title": "Operations by Type SUM",
       "type": "piechart"
     }
   ],
+  "preload": false,
   "refresh": "30s",
   "schemaVersion": 42,
   "tags": [
@@ -170,13 +171,13 @@
   "templating": {
     "list": []
   },
-  "time": {
+    "time": {
     "from": "now-1h",
     "to": "now"
-  },
+    },
   "timepicker": {},
   "timezone": "browser",
   "title": "TiDB CDC Monitoring",
-  "uid": "tidb-cdc-dashboard",
+  "uid": "tidb-cdc",
   "version": 1
 }

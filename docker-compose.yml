@@ -213,8 +213,8 @@ services:
     networks:
       - tidb-network
     restart: unless-stopped
-
-  # Grafana
+  
+  #Grafana
   grafana:
     image: grafana/grafana:latest
     container_name: grafana
@@ -223,7 +223,6 @@ services:
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
-      - GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH=/etc/grafana/provisioning/dashboards/cdc-dashboard.json
     volumes:
       - grafana-data:/var/lib/grafana
       - ./grafana/provisioning:/etc/grafana/provisioning
@@ -233,12 +232,6 @@ services:
       - prometheus
       - elasticsearch
     restart: unless-stopped
-    healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:3000/api/health || exit 1"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-      start_period: 30s
 
 networks:
   tidb-network:
