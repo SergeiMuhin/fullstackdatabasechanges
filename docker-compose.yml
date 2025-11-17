@@ -55,10 +55,11 @@ services:
       - tikv
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "nc", "-z", "127.0.0.1", "4000"]
-      interval: 10s
-      timeout: 5s
-      retries: 10
+      test: ["CMD-SHELL", "curl -f http://localhost:10080/status || exit 1"]
+      interval: 15s
+      timeout: 10s
+      retries: 30
+      start_period: 120s
 
   # Zookeeper for Kafka
   zookeeper:
@@ -96,8 +97,10 @@ services:
     image: pingcap/ticdc:latest
     container_name: ticdc
     command:
+      - /cdc
       - server
       - --addr=0.0.0.0:8300
+      - --advertise-addr=ticdc:8300
       - --pd=http://pd:2379
       - --log-file=/logs/ticdc.log
       - --log-level=info
@@ -188,6 +191,7 @@ services:
     volumes:
       - ./filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
       - ticdc-logs:/logs:ro
+    command: filebeat -e -strict.perms=false
     networks:
       - tidb-network
     depends_on:
