@@ -1,0 +1,68 @@
+{
+  "dashboard": {
+    "id": null,
+    "title": "TiDB CDC Monitoring",
+    "tags": ["tidb", "cdc"],
+    "timezone": "browser",
+    "schemaVersion": 16,
+    "version": 0,
+    "panels": [
+      {
+        "id": 1,
+        "title": "CDC Events (Raw List)",
+        "type": "table",
+        "gridPos": {
+          "x": 0,
+          "y": 0,
+          "w": 24,
+          "h": 10
+        },
+        "datasource": "Elasticsearch",
+        "targets": [
+          {
+            "query": "*",
+            "metrics": [{"type": "logs"}],
+            "timeField": "timestamp"
+          }
+        ],
+        "options": {
+          "showHeader": true
+        },
+        "fieldConfig": {
+          "defaults": {},
+          "overrides": []
+        }
+      },
+      {
+        "id": 2,
+        "title": "Operations by Type (Last 1 Hour)",
+        "type": "piechart",
+        "gridPos": {
+          "x": 0,
+          "y": 10,
+          "w": 12,
+          "h": 8
+        },
+        "datasource": "Prometheus",
+        "targets": [
+          {
+            "expr": "sum by (op) (increase(tidb_cdc_operations_total[1h]))",
+            "legendFormat": "{{op}}"
+          }
+        ],
+        "options": {
+          "legend": {
+            "displayMode": "table",
+            "placement": "right"
+          },
+          "pieType": "pie"
+        }
+      }
+    ],
+    "time": {
+      "from": "now-1h",
+      "to": "now"
+    },
+    "refresh": "30s"
+  }
+}

@@ -1,0 +1,16 @@
+filebeat.inputs:
+  - type: log
+    enabled: true
+    paths:
+      - /logs/*.log
+    fields:
+      service: ticdc
+    fields_under_root: true
+
+output.elasticsearch:
+  hosts: ["elasticsearch:9200"]
+  index: "filebeat-ticdc-%{+yyyy.MM.dd}"
+
+setup.ilm.enabled: false
+setup.template.name: "filebeat-ticdc"
+setup.template.pattern: "filebeat-ticdc-*"

@@ -1,0 +1,14 @@
+{
+  "name": "cdc-consumer",
+  "version": "1.0.0",
+  "description": "TiDB CDC Kafka Consumer with Prometheus and Elasticsearch",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "kafkajs": "^2.2.4",
+    "@elastic/elasticsearch": "^8.10.0",
+    "prom-client": "^15.0.0"
+  }
+}
