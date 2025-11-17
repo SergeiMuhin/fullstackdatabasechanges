@@ -1,18 +1,22 @@
 # Node
 node_modules/
 npm-debug.log*
+*.log
 
 # Docker
-*.log
+.env
+.env.local
 
 # IDE
 .vscode/
 .idea/
+*.swp
+*.swo
 
 # OS
 .DS_Store
 Thumbs.db
 
-# Env
-.env
-.env.local
+# Data
+data/
+*.sql.backup
